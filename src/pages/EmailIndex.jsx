@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react";
 import { emailService } from "../services/emailService";
+
 import { EmailList } from "../cmps/EmailList";
+import { SideBarNavigation } from "../cmps/SideBarNavigation";
 
 export function EmailIndex() {
   const [emails, setEmails] = useState(null);
@@ -22,7 +24,7 @@ export function EmailIndex() {
   if (!emails || emails.length<0) return <div>Loading...</div>;
   return (
     <section className="email-index">
-      <h1>Emails</h1>
+      <SideBarNavigation />
       <EmailList emails={emails}/>
     </section>
   );
