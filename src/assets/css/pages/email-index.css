@@ -1,26 +1,33 @@
 .email-index {
     display: flex;
-    flex-direction: row;
-    justify-content: flex-start;
-    align-items: flex-start;
     height: 80vh;
-    /* padding: 20px;  */
     /* border: 4px solid red; */
-   }
+  }
 
-   .SideBarNavigation {
+  .aside-container {
+    /* flex: 0 0 auto; */
+    width: 200px;
+    background-color: lightgray;
+    /* border: 4px solid green; */
+  }
+
+  .main-container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    /* flex: 1; */
+    /* border: 4px solid purple; */
+  }
+
+  .filter-container {
+    /* flex: 0 0 auto; */
+    width: 100%;
+    background-color: lightblue;
+    /* border: 4px solid yellow; */
+  }
+
+  .emails-container {
     flex: 1;
-    height: 100%;
-    /* margin-right: 20px; */
-    /* background-color: #f0f0f0;  */
-    /* padding: 20px; */
-    border: 8px solid green;
-   }
-
-   .EmailList {
-    flex: 3;
-    /* background-color: #fff;
-    padding: 20px; */
-    /* border: 8px solid blue; */
-   }
-
+    background-color: lightgreen;
+    /* border: 4px solid blue; */
+  }

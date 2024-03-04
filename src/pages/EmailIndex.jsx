@@ -43,9 +43,14 @@ export function EmailIndex() {
 
   return (
     <section className="email-index">
-      <SideBarNavigation />
-      <EmailFilter filterBy={filterBy} onSetFilter={onSetFilter} />
-      <EmailList emails={emails} onRemoveEmail={onRemoveEmail} />
+      <div className="aside-container"><SideBarNavigation /></div>
+      <div className="main-container">
+        <div className="filter-container">
+          <EmailFilter filterBy={filterBy} onSetFilter={onSetFilter} />
+        </div>
+        <div className="emails-container"><EmailList emails={emails} onRemoveEmail={onRemoveEmail} />
+        </div>
+      </div>
     </section>
   );
 }
