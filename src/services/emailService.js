@@ -7,14 +7,20 @@ export const emailService = {
    remove,
    getById,
    createEmail,
+   getDefaultFilter
 };
 
 const STORAGE_KEY = "emails";
 
 _createEmails();
 
-async function query() {
-  const emails = await storageService.query(STORAGE_KEY);
+async function query(filters) {
+  let emails = await storageService.query(STORAGE_KEY);
+  if(filters) {
+    let { subject = '' } = filters
+    emails = emails.filter(email => email.subject.toLowerCase().includes(subject.toLowerCase()))
+  }
+  // console.log(JSON.stringify(emails, null, 2))
   return emails;
 }
 
@@ -70,7 +76,7 @@ function _createSampleData() {
     },
     {
       _id: "e102",
-      subject: "Thech",
+      subject: "Tech",
       boby: "Would you to join tech event...?",
       isRead: false,
       isStarred: false,
@@ -92,16 +98,20 @@ function _createSampleData() {
     },
     {
       _id: "e104",
-      subject: "another Tech",
-      boby: "Would you to join tech event...?",
+      subject: "News",
+      boby: "Do you know about new product...?",
       isRead: false,
       isStarred: false,
       sentA: 1551133930594,
       renovedAt: null,
-      from: "tech@tech.com",
+      from: "news@news.com",
       to: "user@user.com",
     },
   ];
+}
+
+function getDefaultFilter() {
+  return { subject: "" }
 }
 
 
