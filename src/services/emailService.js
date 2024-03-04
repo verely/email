@@ -2,12 +2,12 @@ import { storageService } from "./async-storage.service.js";
 import { utilService } from "./util.service.js";
 
 export const emailService = {
-   query,
-   save,
-   createEmail,
-   getDefaultFilter,
-   //  remove,
-   //  getById,
+  query,
+  save,
+  createEmail,
+  getDefaultFilter,
+  remove,
+  //  getById,
 };
 
 const STORAGE_KEY = "emails";
@@ -16,9 +16,11 @@ _createEmails();
 
 async function query(filters) {
   let emails = await storageService.query(STORAGE_KEY);
-  if(filters) {
-    let { subject = '' } = filters
-    emails = emails.filter(email => email.subject.toLowerCase().includes(subject.toLowerCase()))
+  if (filters) {
+    let { subject = "" } = filters;
+    emails = emails.filter((email) =>
+      email.subject.toLowerCase().includes(subject.toLowerCase())
+    );
   }
   // console.log(JSON.stringify(emails, null, 2))
   return emails;
@@ -28,9 +30,9 @@ async function query(filters) {
 //   return storageService.get(STORAGE_KEY, id);
 // }
 
-// function remove(id) {
-//   return storageService.remove(STORAGE_KEY, id);
-// }
+function remove(id) {
+  return storageService.remove(STORAGE_KEY, id);
+}
 
 function save(emailToSave) {
   if (emailToSave.id) {
@@ -40,26 +42,27 @@ function save(emailToSave) {
   }
 }
 
-function createEmail(from, to, subject="", body="") {
-  return {  id: utilService.makeId(),
-            from,
-            to,
-            subject,
-            body,
-            sentAt: Date.now(),
-            isRead: false,
-            isStarred: false,
-            removedAt: null
-        }
+function createEmail(from, to, subject = "", body = "") {
+  return {
+    id: utilService.makeId(),
+    from,
+    to,
+    subject,
+    body,
+    sentAt: Date.now(),
+    isRead: false,
+    isStarred: false,
+    removedAt: null,
+  };
 }
 
 function _createEmails() {
-    let emails = utilService.loadFromStorage(STORAGE_KEY);
-    if (!emails || !emails.length) {
-      emails = _createSampleData()
-      utilService.saveToStorage(STORAGE_KEY, emails);
-    }
+  let emails = utilService.loadFromStorage(STORAGE_KEY);
+  if (!emails || !emails.length) {
+    emails = _createSampleData();
+    utilService.saveToStorage(STORAGE_KEY, emails);
   }
+}
 
 function _createSampleData() {
   return [
@@ -111,5 +114,5 @@ function _createSampleData() {
 }
 
 function getDefaultFilter() {
-  return { subject: "" }
+  return { subject: "" };
 }

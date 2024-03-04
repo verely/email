@@ -15,16 +15,27 @@ export function EmailIndex() {
 
   async function loadEmails() {
     try {
-        console.log("filterBy", filterBy);
-        const emails = await emailService.query(filterBy);
-        setEmails(emails);
+      console.log("filterBy", filterBy);
+      const emails = await emailService.query(filterBy);
+      setEmails(emails);
     } catch (err) {
       console.log("Error in loadEmails", err);
     }
   }
 
   function onSetFilter(fieldsToUpdate) {
-    setFilters(prevFilter => ({ ...prevFilter, ...fieldsToUpdate }))
+    setFilters((prevFilter) => ({ ...prevFilter, ...fieldsToUpdate }));
+  }
+
+  async function onRemoveEmail(emailId) {
+    try {
+        await emailService.remove(emailId)
+        setEmails((prevEmails) => {
+            return prevEmails.filter(email => email.id !== emailId)
+        })
+    } catch (err) {
+        console.log('Error in onRemoveEmail', err)
+    }
 }
 
   console.log("emails", emails);
@@ -34,7 +45,7 @@ export function EmailIndex() {
     <section className="email-index">
       <SideBarNavigation />
       <EmailFilter filterBy={filterBy} onSetFilter={onSetFilter} />
-      <EmailList emails={emails} />
+      <EmailList emails={emails} onRemoveEmail={onRemoveEmail} />
     </section>
   );
 }
