@@ -4,10 +4,10 @@ import { utilService } from "./util.service.js";
 export const emailService = {
    query,
    save,
-   remove,
-   getById,
    createEmail,
-   getDefaultFilter
+   getDefaultFilter,
+   //  remove,
+   //  getById,
 };
 
 const STORAGE_KEY = "emails";
@@ -24,16 +24,16 @@ async function query(filters) {
   return emails;
 }
 
-function getById(id) {
-  return storageService.get(STORAGE_KEY, id);
-}
+// function getById(id) {
+//   return storageService.get(STORAGE_KEY, id);
+// }
 
-function remove(id) {
-  return storageService.remove(STORAGE_KEY, id);
-}
+// function remove(id) {
+//   return storageService.remove(STORAGE_KEY, id);
+// }
 
 function save(emailToSave) {
-  if (emailToSave._id) {
+  if (emailToSave.id) {
     return storageService.put(STORAGE_KEY, emailToSave);
   } else {
     return storageService.post(STORAGE_KEY, emailToSave);
@@ -41,7 +41,7 @@ function save(emailToSave) {
 }
 
 function createEmail(from, to, subject="", body="") {
-  return { _id: utilService.makeId(),
+  return {  id: utilService.makeId(),
             from,
             to,
             subject,
@@ -64,7 +64,7 @@ function _createEmails() {
 function _createSampleData() {
   return [
     {
-      _id: "e101",
+      id: "e101",
       subject: "Trip",
       boby: "Would you like to take a trip to the Nurth...?",
       isRead: false,
@@ -75,7 +75,7 @@ function _createSampleData() {
       to: "user@user.com",
     },
     {
-      _id: "e102",
+      id: "e102",
       subject: "Tech",
       boby: "Would you to join tech event...?",
       isRead: false,
@@ -86,7 +86,7 @@ function _createSampleData() {
       to: "user@user.com",
     },
     {
-      _id: "e103",
+      id: "e103",
       subject: "another Trip",
       boby: "Would you like to take another trip to the Nurth?",
       isRead: false,
@@ -97,7 +97,7 @@ function _createSampleData() {
       to: "user@user.com",
     },
     {
-      _id: "e104",
+      id: "e104",
       subject: "News",
       boby: "Do you know about new product...?",
       isRead: false,
@@ -113,7 +113,3 @@ function _createSampleData() {
 function getDefaultFilter() {
   return { subject: "" }
 }
-
-
-
-
