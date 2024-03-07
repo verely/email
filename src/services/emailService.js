@@ -14,14 +14,25 @@ const STORAGE_KEY = "emails";
 
 _createEmails();
 
+
+
 async function query(filters) {
   let emails = await storageService.query(STORAGE_KEY);
-  if (filters) {
-    let { subject = "" } = filters;
+  if (!filters) return emails;
+
+  const { subject = "", folder = "" } = filters;
+
+  if (folder) {
+    emails = emails.filter((email) => _filterEmailsByFolder(email, folder));
+  }
+
+  const lowerCaseSubject = subject.toLowerCase();
+  if (subject) {
     emails = emails.filter((email) =>
-      email.subject.toLowerCase().includes(subject.toLowerCase())
+        email.subject.toLowerCase().includes(lowerCaseSubject)
     );
   }
+
   // console.log(JSON.stringify(emails, null, 2))
   return emails;
 }
@@ -69,50 +80,67 @@ function _createSampleData() {
     {
       id: "e101",
       subject: "Trip",
-      boby: "Would you like to take a trip to the Nurth...?",
+      body: "Would you like to take a trip to the North...?",
       isRead: false,
       isStarred: false,
       sentA: 1551133930594,
-      renovedAt: null,
+      removedAt: null,
       from: "friend@friend.com",
       to: "user@user.com",
     },
     {
       id: "e102",
       subject: "Tech",
-      boby: "Would you to join tech event...?",
-      isRead: false,
-      isStarred: false,
+      body: "Would you to join tech event...?",
+      isRead: true,
+      isStarred: true,
       sentA: 1551133930594,
-      renovedAt: null,
+      removedAt: null,
       from: "tech@tech.com",
       to: "user@user.com",
     },
     {
       id: "e103",
       subject: "another Trip",
-      boby: "Would you like to take another trip to the Nurth?",
-      isRead: false,
+      body: "Would you like to take another trip to the North?",
+      isRead: true,
       isStarred: false,
       sentA: 1551133930594,
-      renovedAt: null,
+      removedAt: null,
       from: "friend@friend.com",
       to: "user@user.com",
     },
     {
       id: "e104",
       subject: "News",
-      boby: "Do you know about new product...?",
+      body: "Do you know about new product...?",
       isRead: false,
       isStarred: false,
       sentA: 1551133930594,
-      renovedAt: null,
+      removedAt: null,
       from: "news@news.com",
       to: "user@user.com",
     },
   ];
 }
 
-function getDefaultFilter() {
-  return { subject: "" };
+function getDefaultFilter(folder = "inbox") {
+  return { folder, subject: "" };
 }
+
+function _filterEmailsByFolder(email, folder) {
+  switch (folder) {
+     case 'inbox':
+       return !email.isStarred && email.removedAt === null && email.from !== email.to;
+     case 'starred':
+       return email.isStarred;
+     case 'sent':
+       return email.from === email.to;
+     case 'draft':
+       return email.sentA === null;
+     case 'trash':
+       return email.removedAt !== null;
+     default:
+       return false;
+  }
+ }
