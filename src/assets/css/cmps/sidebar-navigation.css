@@ -12,20 +12,19 @@
 
 .sidebar .container {
     width: 100%;
-    padding: 0 0 0 10px;
     margin: 0 0 0 0;
     /* gap: 10px; */
 }
 
 .sidebar .container a {
     width: 100%;
-    padding: 0;
     margin: 0;
     display: flex;
     align-items: center;
-    padding: 10px;
+    padding: 10px 10px 10px 20px;
     text-decoration: none;
     color: #333;
+    border-radius: 0 16px 16px 0;
     /* border-bottom: 1px solid #ddd;  */
     /* border: 4px solid green; */
 }
@@ -38,6 +37,7 @@
 .sidebar .container a.active {
     background-color: #e0e0e0;
     color: #000;
+    background-color: #d3ddfb;
 }
 
 .nav-icon {
