@@ -48,3 +48,27 @@
     height: 25px;
     margin-right: 10px;
 }
+
+.compose-btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 142px;
+    height: 56px;
+    padding: 0 24px 0 0;
+    margin: 0 0 16px 8px;
+    border: none;
+    border-radius: 16px;
+    font-size: 18px;
+    font-weight: 500;
+    color: #5f6368;
+    background-color: lightblue;
+}
+
+.compose-btn img {
+    margin-right: 10px;
+}
+
+.compose-btn:hover {
+    box-shadow: 0 1px 2px 0 rgba(60, 64, 67, 0.302), 0 1px 3px 1px rgba(60, 64, 67, 0.149);
+}

@@ -4,10 +4,15 @@ import starredImgUrl from "../assets/imgs/cmps/sidebar-navigation/starred.png";
 import sentImgUrl from "../assets/imgs/cmps/sidebar-navigation/sent.png";
 import trashImgUrl from "../assets/imgs/cmps/shared/trash.png";
 import draftImgUrl from "../assets/imgs/cmps/sidebar-navigation/draft.png";
+import editImgUrl from "../assets/imgs/cmps/sidebar-navigation/edit.png";
 
 export function SideBarNavigation() {
   return (
     <div className="sidebar">
+      <button className="compose-btn">
+        <img height={20} width={20} src={editImgUrl} />
+        Compose
+      </button>
       <nav className="container">
         <NavLink to="/inbox">
           <img src={inboxImgUrl} alt="Inbox" className="nav-icon" />
