@@ -48,8 +48,39 @@ export function EmailIndex() {
     }
   }
 
+  async function onMarkAsRead(emailId) {
+    try {
+      console.log("MarkAsRead email", emailId);
+    } catch (err) {
+      console.log("Error in onMarkAsRead", err);
+    }
+  }
+
+  async function onStarEmail(emailId) {
+    try {
+      console.log("Starr email", emailId);
+    } catch (err) {
+      console.log("Error in onStarEmail", err);
+    }
+  }
+
+  async function onArchiveEmail(emailId) {
+    try {
+      console.log("Archive email", emailId);
+    } catch (err) {
+      console.log("Error in onArchiveEmail", err);
+    }
+  }
+
   console.log("emails", emails);
   if (!emails || emails.length < 0) return <div>Loading...</div>;
+
+  const emailActions = {
+    onStarEmail: onStarEmail,
+    onArchiveEmail: onArchiveEmail,
+    onMarkAsRead: onMarkAsRead,
+    onRemoveEmail: onRemoveEmail,
+   };
 
   return (
     <section className="email-index">
@@ -61,7 +92,8 @@ export function EmailIndex() {
           <EmailFilter filterBy={filterBy} onSetFilter={onSetFilter} />
         </div>
         <div className="emails-container">
-          <EmailList emails={emails} onRemoveEmail={onRemoveEmail} />
+          <EmailList emails={emails} emailActions={emailActions}
+          />
         </div>
       </div>
     </section>

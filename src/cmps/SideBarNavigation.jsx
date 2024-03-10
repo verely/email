@@ -2,7 +2,7 @@ import { NavLink } from "react-router-dom";
 import inboxImgUrl from "../assets/imgs/cmps/sidebar-navigation/inbox.png";
 import starredImgUrl from "../assets/imgs/cmps/sidebar-navigation/starred.png";
 import sentImgUrl from "../assets/imgs/cmps/sidebar-navigation/sent.png";
-import trashImgUrl from "../assets/imgs/cmps/sidebar-navigation/trash.png";
+import trashImgUrl from "../assets/imgs/cmps/shared/trash.png";
 import draftImgUrl from "../assets/imgs/cmps/sidebar-navigation/draft.png";
 
 export function SideBarNavigation() {

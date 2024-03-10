@@ -29,6 +29,6 @@
 
   .emails-container {
     flex: 1;
-    background-color: lightgreen;
+    /* background-color: lightgreen; */
     /* border: 4px solid blue; */
   }
