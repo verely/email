@@ -1,9 +1,9 @@
  .email-compose {
     background-color: white;
-    height: 50%;
+    height: 60%;
     width: 50%;
     position: fixed;
-    bottom: calc(20%);
+    bottom: calc(5%);
     right: calc(2%);
     z-index: 6;
     box-shadow: 10px 20px 30px 5px rgba(0, 0, 0, 0.1);
@@ -11,12 +11,12 @@
 }
 
 .email-compose h2 {
-    margin-bottom: 20px;
+    margin-bottom: 5px;
 }
 
 .email-compose label {
     display: block;
-    margin-bottom: 10px;
+    margin-bottom: 5px;
 }
 
 .email-compose input {
@@ -24,7 +24,7 @@
     padding: 10px;
     border: 1px solid #ddd;
     border-radius: 5px;
-    margin-bottom: 20px;
+    margin-bottom: 5px;
 }
 
 .email-compose button {
@@ -45,10 +45,15 @@
     padding: 10px;
     border: 1px solid #ddd;
     border-radius: 5px;
-    margin-bottom: 20px;
-    height: 400px;
+    margin-bottom: 10px;
+    height: 50px;
 }
 
 .email-compose label[for="body"] {
     display: none;
 }
+
+ .email-compose form label:nth-of-type(2) {
+    margin-top: -20px;
+}
+
