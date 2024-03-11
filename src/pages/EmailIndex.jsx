@@ -1,16 +1,18 @@
 import { useState, useEffect } from "react";
-import { emailService } from "../services/emailService";
+import { useParams, useLocation, useNavigate, Outlet } from "react-router-dom";
 
 import { EmailList } from "../cmps/EmailList";
 import { SideBarNavigation } from "../cmps/SideBarNavigation";
 import { EmailFilter } from "../cmps/EmailFilter";
-import { useParams, useLocation } from "react-router-dom";
+
+import { emailService } from "../services/emailService";
 
 export function EmailIndex() {
-  const location = useLocation();
-  const params = useParams();
+  const location = useLocation()
+  const params = useParams()
+  const navigate = useNavigate()
 
-  const [emails, setEmails] = useState(null);
+  const [emails, setEmails] = useState(null)
   const [filterBy, setFilters] = useState(
     emailService.getDefaultFilter(location.pathname.split("/")[1])
   );
@@ -34,6 +36,9 @@ export function EmailIndex() {
   }
 
   function onSetFilter(fieldsToUpdate) {
+    if (fieldsToUpdate.folder === 'compose') {
+      navigate(`${location.pathname}/compose`)
+    }
     setFilters((prevFilter) => ({ ...prevFilter, ...fieldsToUpdate }));
   }
 
@@ -82,10 +87,16 @@ export function EmailIndex() {
     onRemoveEmail: onRemoveEmail,
    };
 
+   const handleComposeClick = () => {
+    const currentFolder = location.pathname;
+    const composeUrl = `${currentFolder}/compose`;
+    navigate(composeUrl);
+  };
+
   return (
     <section className="email-index">
       <div className="aside-container">
-        <SideBarNavigation />
+        <SideBarNavigation handleComposeClick={handleComposeClick}/>
       </div>
       <div className="main-container">
         <div className="filter-container">
@@ -95,6 +106,7 @@ export function EmailIndex() {
           <EmailList emails={emails} emailActions={emailActions}
           />
         </div>
+        <Outlet />
       </div>
     </section>
   );
