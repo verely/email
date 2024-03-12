@@ -3,10 +3,17 @@ import archiveImg from "../assets/imgs/cmps/email-preview/archive.png";
 import starImg from "../assets/imgs/cmps/email-preview/star.png";
 import trashImg from "../assets/imgs/cmps/shared/trash.png";
 
-export function EmailPreview({ email, emailActions}) {
+export function EmailPreview({ email, emailActions, openEmailDetails}) {
   const sent = new Date(email.sentA).toLocaleString();
+
+  function onEmailDetailsClick(emailId) {
+    //ev.stopPropagation()
+    openEmailDetails(emailId)
+    console.log(`onEmailDetailsClick ${emailId}`);
+ }
+
   return (
-    <article className="email-preview">
+    <article className="email-preview" onClick={() => onEmailDetailsClick(email.id)}>
       <input className="checkbox" type="checkbox" />
       <button className="action-button"onClick={() => emailActions.onStarEmail(email.id)}>
         <img src={starImg} alt="Star" />

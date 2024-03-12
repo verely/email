@@ -1,9 +1,10 @@
 import { useState, useEffect } from "react";
-import { useParams, useLocation, useNavigate, Outlet } from "react-router-dom";
+import { useParams, useLocation, useNavigate, Outlet, useSearchParams } from "react-router-dom";
 
 import { EmailList } from "../cmps/EmailList";
 import { SideBarNavigation } from "../cmps/SideBarNavigation";
 import { EmailFilter } from "../cmps/EmailFilter";
+import { EmailCompose } from "./EmailCompose";
 
 import { emailService } from "../services/emailService";
 
@@ -11,6 +12,7 @@ export function EmailIndex() {
   const location = useLocation()
   const params = useParams()
   const navigate = useNavigate()
+  const [searchParams , setSearchParams] = useSearchParams()
 
   const [emails, setEmails] = useState(null)
   const [filterBy, setFilters] = useState(
@@ -89,9 +91,19 @@ export function EmailIndex() {
 
    const handleComposeClick = () => {
     const currentFolder = location.pathname;
-    const composeUrl = `${currentFolder}/compose`;
+    // const composeUrl = `${currentFolder}/compose`;
+    const composeUrl = `${currentFolder}?compose=new`;
     navigate(composeUrl);
   };
+
+  function openEmailDetails(emailId) {
+    // const currentFolder = location.pathname;
+    const currentFolder = params.folder
+    const emailDetailsUrl = `/${currentFolder}/${emailId}`;
+    console.log(`openEmailDetails ${emailDetailsUrl}`);
+    navigate(emailDetailsUrl);
+  }
+  const isCompose = !!searchParams.get('compose')
 
   return (
     <section className="email-index">
@@ -103,10 +115,10 @@ export function EmailIndex() {
           <EmailFilter filterBy={filterBy} onSetFilter={onSetFilter} />
         </div>
         <div className="emails-container">
-          <EmailList emails={emails} emailActions={emailActions}
-          />
+          <EmailList emails={emails} emailActions={emailActions} openEmailDetails={openEmailDetails} />
         </div>
         <Outlet />
+        {(isCompose) && <EmailCompose/>}
       </div>
     </section>
   );
