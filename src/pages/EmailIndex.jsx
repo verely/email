@@ -12,7 +12,7 @@ export function EmailIndex() {
   const location = useLocation()
   const params = useParams()
   const navigate = useNavigate()
-  const [searchParams , setSearchParams] = useSearchParams()
+  const [searchParams] = useSearchParams()
 
   const [emails, setEmails] = useState(null)
   const [filterBy, setFilters] = useState(
@@ -91,13 +91,11 @@ export function EmailIndex() {
 
    const handleComposeClick = () => {
     const currentFolder = location.pathname;
-    // const composeUrl = `${currentFolder}/compose`;
     const composeUrl = `${currentFolder}?compose=new`;
     navigate(composeUrl);
   };
 
   function openEmailDetails(emailId) {
-    // const currentFolder = location.pathname;
     const currentFolder = params.folder
     const emailDetailsUrl = `/${currentFolder}/${emailId}`;
     console.log(`openEmailDetails ${emailDetailsUrl}`);
