@@ -13,14 +13,28 @@ export function EmailPreview({ email, emailActions, openEmailDetails}) {
  }
 
   return (
-    <article className="email-preview" onClick={() => onEmailDetailsClick(email.id)}>
-      <input className="checkbox" type="checkbox" />
-      <button className="action-button"onClick={() => emailActions.onStarEmail(email.id)}>
-        <img src={starImg} alt="Star" />
-      </button>
-      <h4 className="from">{email.from}</h4>
-      <h4 className="subject">{email.subject}</h4>
-      <h4 className="sent">{sent}</h4>
+    <article className="email-preview-grid-item" onClick={() => onEmailDetailsClick(email.id)}>
+      <div className="checkbox-cell">
+        <input className="checkbox" type="checkbox" />
+      </div>
+      <div className="star-cell">
+        <button className="action-button" onClick={() => emailActions.onStarEmail(email.id)}>
+          <img src={starImg} alt="Star" />
+        </button>
+      </div>
+      <div className="from-cell">
+        <h4 className="from">{email.from}</h4>
+      </div>
+      <div className="subject-cell">
+        <h4 className="subject">{email.subject}</h4>
+      </div>
+      <div className="body-cell">
+        <p>{email.body}</p>
+      </div>
+      <div className="sent-cell">
+        <h4 className="sent">{sent}</h4>
+      </div>
+
       <div className="email-actions">
         <div>
           <button className="action-button" onClick={() => emailActions.onArchiveEmail(email.id)}>
@@ -34,7 +48,6 @@ export function EmailPreview({ email, emailActions, openEmailDetails}) {
           <button className="action-button" onClick={() => emailActions.onMarkAsRead(email.id)}>
             <img src={markAsReadImg} alt="Mark as read" />
           </button>
-
         </div>
       </div>
     </article>

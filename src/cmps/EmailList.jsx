@@ -1,14 +1,16 @@
-// import { Link } from "react-router-dom";
 import { EmailPreview } from "./EmailPreview.jsx";
 
-export function EmailList({ emails, emailActions, openEmailDetails}) {
-  return (
-    <ul className="email-list">
+export function EmailList({ emails, emailActions, openEmailDetails }) {
+ return (
+    <div className="email-list-grid">
       {emails?.map((email) => (
-        <li key={email.id}>
-          <EmailPreview email={email} emailActions={emailActions} openEmailDetails={openEmailDetails}/>
-        </li>
+        <EmailPreview
+          key={email.id}
+          email={email}
+          emailActions={emailActions}
+          openEmailDetails={openEmailDetails}
+        />
       ))}
-    </ul>
+    </div>
   );
 }

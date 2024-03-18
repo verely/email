@@ -32,3 +32,11 @@
     /* background-color: lightgreen; */
     /* border: 4px solid blue; */
   }
+
+  .email-details {
+   display: none;
+  }
+
+  .email-details .active{
+    display: block;
+   }

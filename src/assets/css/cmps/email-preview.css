@@ -1,29 +1,23 @@
-.email-preview {
+.email-preview-grid-item {
+  display: contents;
+}
+
+.checkbox-cell,
+.star-cell,
+.from-cell,
+.subject-cell,
+.sent-cell {
+ display: flex;
+ align-items: center;
+}
+
+.body-cell {
   display: flex;
   align-items: center;
-  padding: 10px;
-  border-top: 1px solid #ccc;
-  /* border: 4px solid green; */
-}
-
-.email-preview h4 {
-  margin: 0;
-}
-
-.email-preview .subject {
-  flex: 6;
-  /* border: 4px solid coral; */
-}
-
-.email-preview .from {
-  flex: 2;
-  /* border: 4px solid coral; */
-}
-
-.email-preview .sent {
-  flex: 3;
-  /* border: 4px solid coral; */
-}
+  max-height: 6.25em;
+  overflow: auto;
+  padding: 0.625em;
+ }
 
 .star {
   font-size: 18px;
@@ -35,7 +29,6 @@
 .star.active {
   color: gold;
 }
-
 
 .action-button {
     border: none;
@@ -50,19 +43,20 @@
     border-radius: 70%;
   }
 
-.email-preview:hover .checkbox {
-    border-radius: 50%;
-  }
+.email-preview-grid-item:hover {
+  cursor: pointer;
+}
 
-.email-preview:hover .email-actions {
+.email-preview-grid-item:hover .email-actions {
   display: block;
-  }
+  justify-self: end;
+}
 
-.email-preview:hover .sent {
-    display: none;
-   }
+.email-preview-grid-item:hover .sent-cell {
+  display: none;
+}
 
 .email-actions {
   display: none;
-  }
+}
 
