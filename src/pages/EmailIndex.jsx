@@ -96,12 +96,14 @@ export function EmailIndex() {
   };
 
   function openEmailDetails(emailId) {
+    console.log(params)
     const currentFolder = params.folder
     const emailDetailsUrl = `/${currentFolder}/${emailId}`;
     console.log(`openEmailDetails ${emailDetailsUrl}`);
     navigate(emailDetailsUrl);
   }
   const isCompose = !!searchParams.get('compose')
+  const isEmailDetails = !!params.emailId
 
   return (
     <section className="email-index">
@@ -112,10 +114,13 @@ export function EmailIndex() {
         <div className="filter-container">
           <EmailFilter filterBy={filterBy} onSetFilter={onSetFilter} />
         </div>
-        <div className="emails-container">
-          <EmailList emails={emails} emailActions={emailActions} openEmailDetails={openEmailDetails} />
-        </div>
-        <Outlet />
+        {(!isEmailDetails) &&
+          <div className="emails-container">
+            <EmailList emails={emails} emailActions={emailActions}
+                openEmailDetails={openEmailDetails}  />
+          </div>
+        }
+        {isEmailDetails && <Outlet />}
         {(isCompose) && <EmailCompose/>}
       </div>
     </section>
