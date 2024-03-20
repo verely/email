@@ -5,8 +5,19 @@ import sentImgUrl from "../assets/imgs/cmps/sidebar-navigation/sent.png";
 import trashImgUrl from "../assets/imgs/cmps/shared/trash.png";
 import draftImgUrl from "../assets/imgs/cmps/sidebar-navigation/draft.png";
 import editImgUrl from "../assets/imgs/cmps/sidebar-navigation/edit.png";
+import { useSearchParams } from "react-router-dom";
 
 export function SideBarNavigation({handleComposeClick}) {
+  const [searchParams] = useSearchParams()
+  console.log(searchParams)
+  const isCompose = searchParams.get('compose')
+
+  function generateUrl(route, searchParams, isCompose) {
+    if (isCompose) {
+       return `${route}?${searchParams}`;
+    }
+    return route;
+   }
 
   return (
     <div className="sidebar">
@@ -15,24 +26,24 @@ export function SideBarNavigation({handleComposeClick}) {
           Compose
         </button>
       <nav className="container">
-        <NavLink to="/inbox">
+        <NavLink to={generateUrl("/inbox", searchParams, isCompose)}>
           <img src={inboxImgUrl} alt="Inbox" className="nav-icon" />
           Inbox
         </NavLink>
-        <NavLink to="/starred">
-          <img src={starredImgUrl} alt="Inbox" className="nav-icon" />
+        <NavLink to={generateUrl("/starred", searchParams, isCompose)}>
+          <img src={starredImgUrl} alt="Starred" className="nav-icon" />
           Starred
         </NavLink>
-        <NavLink to="/sent">
-          <img src={sentImgUrl} alt="Inbox" className="nav-icon" />
+        <NavLink to={generateUrl("/sent", searchParams, isCompose)}>
+          <img src={sentImgUrl} alt="Sent" className="nav-icon" />
           Sent
         </NavLink>
-        <NavLink to="/draft">
-          <img src={draftImgUrl} alt="Inbox" className="nav-icon" />
+        <NavLink to={generateUrl("/draft", searchParams, isCompose)}>
+          <img src={draftImgUrl} alt="Draft" className="nav-icon" />
           Draft
         </NavLink>
-        <NavLink to="/trash">
-          <img src={trashImgUrl} alt="Inbox" className="nav-icon" />
+        <NavLink to={generateUrl("/trash", searchParams, isCompose)}>
+          <img src={trashImgUrl} alt="Trash" className="nav-icon" />
           Trash
         </NavLink>
       </nav>

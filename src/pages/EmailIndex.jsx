@@ -12,7 +12,7 @@ export function EmailIndex() {
   const location = useLocation()
   const params = useParams()
   const navigate = useNavigate()
-  const [searchParams] = useSearchParams()
+  const [searchParams, setSearchParams] = useSearchParams()
 
   const [emails, setEmails] = useState(null)
   const [filterBy, setFilters] = useState(
@@ -26,6 +26,7 @@ export function EmailIndex() {
   useEffect(() => {
     onSetFilter(emailService.getDefaultFilter(location.pathname.split("/")[1]));
   }, [params.folder]);
+
 
   async function loadEmails() {
     try {
@@ -90,9 +91,10 @@ export function EmailIndex() {
    };
 
    const handleComposeClick = () => {
-    const currentFolder = location.pathname;
-    const composeUrl = `${currentFolder}?compose=new`;
-    navigate(composeUrl);
+    // const currentFolder = location.pathname;
+    // const composeUrl = `${currentFolder}?compose=new`;
+    // navigate(composeUrl);
+    setSearchParams("compose=new")
   };
 
   function openEmailDetails(emailId) {
