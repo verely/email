@@ -4,7 +4,7 @@ import starImg from "../assets/imgs/cmps/email-preview/star.png";
 import trashImg from "../assets/imgs/cmps/shared/trash.png";
 
 export function EmailPreview({ email, emailActions, openEmailDetails}) {
-  const sent = new Date(email.sentA).toLocaleString();
+  const sent = new Date(email.sentAt).toLocaleString();
 
   function onEmailDetailsClick(emailId) {
     //ev.stopPropagation()

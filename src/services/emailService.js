@@ -11,6 +11,7 @@ export const emailService = {
 };
 
 const STORAGE_KEY = "emails";
+const DEFAULT_TO = "user@user.com";
 
 _createEmails();
 
@@ -53,19 +54,24 @@ function save(emailToSave) {
   }
 }
 
-function createEmail(from, to, subject = "", body = "") {
+// Factory function for creating email objects
+function createEmail(from, to=DEFAULT_TO, subject = "", body = "") {
+  _createEmail(from, subject, body, Date.now(), to)
+}
+
+function _createEmail(from, subject, body, sentAt, isRead=false, isStarred=false, to=DEFAULT_TO) {
   return {
     id: utilService.makeId(),
     from,
     to,
     subject,
     body,
-    sentAt: Date.now(),
-    isRead: false,
-    isStarred: false,
+    sentAt,
+    isRead,
+    isStarred,
     removedAt: null,
   };
-}
+ }
 
 function _createEmails() {
   let emails = utilService.loadFromStorage(STORAGE_KEY);
@@ -76,53 +82,55 @@ function _createEmails() {
 }
 
 function _createSampleData() {
-  return [
-    {
-      id: "e101",
-      subject: "Trip",
-      body: "Would you like to take a trip to the North...?",
-      isRead: false,
-      isStarred: false,
-      sentA: 1551133930594,
-      removedAt: null,
-      from: "friend@friend.com",
-      to: "user@user.com",
-    },
-    {
-      id: "e102",
-      subject: "Tech",
-      body: "Would you to join tech event...?",
-      isRead: true,
-      isStarred: true,
-      sentA: 1551133930594,
-      removedAt: null,
-      from: "tech@tech.com",
-      to: "user@user.com",
-    },
-    {
-      id: "e103",
-      subject: "another Trip",
-      body: "Would you like to take another trip to the North?",
-      isRead: true,
-      isStarred: false,
-      sentA: 1551133930594,
-      removedAt: null,
-      from: "friend@friend.com",
-      to: "user@user.com",
-    },
-    {
-      id: "e104",
-      subject: "News",
-      body: "Do you know about new product...?",
-      isRead: false,
-      isStarred: false,
-      sentA: 1551133930594,
-      removedAt: null,
-      from: "news@news.com",
-      to: "user@user.com",
-    },
-  ];
+  const sampleData = []
+  const subjects = ['News', 'Sport', 'Tech', 'Shopping', 'Trip', 'ECard', 'Doctor'];
+
+  for (let i = 1; i <= 20; i++) {
+    const from = `sample${i}@example.com`;
+    const subject = subjects[i % subjects.length];
+    const body = `Sample email ${i} like Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+      Sed euismod, nunc at cursus pellentesque, nisl eros pellentesque quam, a faucibus nisl risus id nisi.
+      Sed auctor, nunc at cursus pellentesque, nisl eros pellentesque quam, a faucibus nisl risus id nisi.
+      Sed auctor, nunc at cursus pellentesque, nisl eros pellentesque quam, a faucibus nisl risus id nisi.`;
+    const isRead = i % 2 === 0;
+    const isStarred = i % 3 === 0;
+    const sentAt = simulateSentAtDate(i);
+
+    sampleData.push(_createEmail(from, subject, body, sentAt, isRead, isStarred));
+  }
+  return sampleData;
+
+  function simulateSentAtDate(i) {
+    let sentAt;
+    switch (i % 5) {
+      case 0: // Today
+        sentAt = new Date().getTime();
+        break;
+      case 1: // Yesterday
+        sentAt = getRelativeDate(1);
+        break;
+      case 2: // A week ago
+        sentAt = getRelativeDate(7);
+        break;
+      case 3: // Two months ago
+        sentAt = getRelativeDate(60); // Approximation
+        break;
+      case 4: // One year ago
+        sentAt = getRelativeDate(365);
+        break;
+      default: // For any other case, use Today
+        sentAt = getRelativeDate(0);
+    }
+    return sentAt;
+  }
+
+  function getRelativeDate(daysAgo) {
+    const date = new Date();
+    date.setDate(date.getDate() - daysAgo);
+    return date.getTime();
+  }
 }
+
 
 function getDefaultFilter(folder = "inbox") {
   return { folder, subject: "" };
@@ -143,4 +151,4 @@ function _filterEmailsByFolder(email, folder) {
      default:
        return false;
   }
- }
+}
