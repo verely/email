@@ -58,9 +58,10 @@ export function EmailIndex() {
 
   async function onMarkAsRead(emailId) {
     try {
-      console.log("MarkAsRead email", emailId);
+      console.log("markAsRead email", emailId)
+      emailService.markAsRead(emailId)
     } catch (err) {
-      console.log("Error in onMarkAsRead", err);
+      console.log("Error in onMarkAsRead", err)
     }
   }
 
@@ -100,8 +101,9 @@ export function EmailIndex() {
   function openEmailDetails(emailId) {
     console.log(params)
     const currentFolder = params.folder
-    const emailDetailsUrl = `/${currentFolder}/${emailId}`;
-    console.log(`openEmailDetails ${emailDetailsUrl}`);
+    const emailDetailsUrl = `/${currentFolder}/${emailId}`
+    console.log(`openEmailDetails ${emailDetailsUrl}`)
+    onMarkAsRead(emailId)
     navigate(emailDetailsUrl);
   }
   const isCompose = !!searchParams.get('compose')

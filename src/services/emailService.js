@@ -7,6 +7,7 @@ export const emailService = {
   createEmail,
   getDefaultFilter,
   remove,
+  markAsRead
   //  getById,
 };
 
@@ -38,9 +39,9 @@ async function query(filters) {
   return emails;
 }
 
-// function getById(id) {
-//   return storageService.get(STORAGE_KEY, id);
-// }
+function getById(id) {
+  return storageService.get(STORAGE_KEY, id);
+}
 
 function remove(id) {
   return storageService.remove(STORAGE_KEY, id);
@@ -52,6 +53,23 @@ function save(emailToSave) {
   } else {
     return storageService.post(STORAGE_KEY, emailToSave);
   }
+}
+
+async function markAsRead(emailId) {
+  try {
+    const email = await getById(emailId);
+    if (!email) {
+      throw new Error(`Email with ID ${emailId} not found.`);
+    }
+
+    email.isRead = true;
+
+    await save(email);
+    console.log(`Email with ID ${emailId} marked as read.`);
+ } catch (error) {
+    console.error(`Error marking email as read: ${error.message}`);
+    //to do: show a notification to the user
+ }
 }
 
 // Factory function for creating email objects
