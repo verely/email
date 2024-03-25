@@ -7,6 +7,7 @@ import trashImg from "../assets/imgs/cmps/shared/trash.png";
 export function EmailPreview({ email, emailActions, openEmailDetails}) {
   const [maxLength, setMaxLength] = useState(130);
 
+  const isRead = email.isRead;
   const sent = new Date(email.sentAt).toLocaleString();
   const truncatedBody = truncateText(email.body, maxLength);
 
@@ -36,7 +37,7 @@ export function EmailPreview({ email, emailActions, openEmailDetails}) {
   }
 
   return (
-    <article className="email-preview-grid-item" onClick={() => onEmailDetailsClick(email.id)}>
+    <article className={`email-preview-grid-item ${isRead ? 'read' : 'unread'}`} onClick={() => onEmailDetailsClick(email.id)}>
       <div className="checkbox-cell">
         <input className="checkbox" type="checkbox" />
       </div>

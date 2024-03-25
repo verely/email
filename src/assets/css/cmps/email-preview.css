@@ -60,3 +60,15 @@
   display: none;
 }
 
+.email-preview-grid-item.unread .subject-cell h4,
+.email-preview-grid-item.unread .from-cell h4,
+.email-preview-grid-item.unread .sent-cell h4 {
+ font-weight: bold;
+}
+
+.email-preview-grid-item.read .subject-cell h4
+.email-preview-grid-item.read .from-cell h4,
+.email-preview-grid-item.read .sent-cell h4  {
+  font-weight: normal;
+}
+
