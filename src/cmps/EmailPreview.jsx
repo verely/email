@@ -27,7 +27,6 @@ export function EmailPreview({ email, emailActions, openEmailDetails}) {
   };
 
   function onEmailDetailsClick(emailId) {
-    //ev.stopPropagation()
     openEmailDetails(emailId)
     console.log(`onEmailDetailsClick ${emailId}`);
   }
@@ -37,7 +36,7 @@ export function EmailPreview({ email, emailActions, openEmailDetails}) {
   }
 
   return (
-    <article className={`email-preview-grid-item ${isRead ? 'read' : 'unread'}`} onClick={() => onEmailDetailsClick(email.id)}>
+    <article className={`email-preview-grid-item ${isRead ? 'read' : 'unread'}`} >
       <div className="checkbox-cell">
         <input className="checkbox" type="checkbox" />
       </div>
@@ -46,13 +45,13 @@ export function EmailPreview({ email, emailActions, openEmailDetails}) {
           <img src={starImg} alt="Star" />
         </button>
       </div>
-      <div className="from-cell">
+      <div className="from-cell" onClick={() => onEmailDetailsClick(email.id)}>
         <h4 className="from">{email.from}</h4>
       </div>
-      <div className="subject-cell">
+      <div className="subject-cell" onClick={() => onEmailDetailsClick(email.id)}>
         <h4 className="subject">{email.subject}</h4>
       </div>
-      <div className="body-cell">
+      <div className="body-cell" onClick={() => onEmailDetailsClick(email.id)}>
         <p>{truncatedBody}</p>
       </div>
       <div className="sent-cell">
