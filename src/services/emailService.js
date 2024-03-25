@@ -54,6 +54,11 @@ function save(emailToSave) {
     return storageService.post(STORAGE_KEY, emailToSave);
   }
 }
+//to-do
+// function update(emailId, propertyToUpdate)
+// {
+//   markAsRead(emailId)
+// }
 
 async function markAsRead(emailId) {
   try {

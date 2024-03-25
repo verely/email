@@ -60,6 +60,12 @@ export function EmailIndex() {
     try {
       console.log("markAsRead email", emailId)
       emailService.markAsRead(emailId)
+      setEmails(emails.map(email => {
+        if (email.id === emailId) {
+          return { ...email, isRead: true };
+        }
+        return email;
+      }));
     } catch (err) {
       console.log("Error in onMarkAsRead", err)
     }
