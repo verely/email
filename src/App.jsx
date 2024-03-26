@@ -3,7 +3,6 @@ import { Route, HashRouter as Router, Routes } from 'react-router-dom'
 import { Home } from './pages/Home'
 import { AboutUs } from './pages/AboutUs'
 import { EmailIndex } from './pages/EmailIndex'
-import { EmailCompose } from './pages/EmailCompose'
 import { EmailDetails } from './pages/EmailDetails'
 
 import { AppHeader } from './cmps/AppHeader'
@@ -28,7 +27,7 @@ export function App() {
 
                 <footer>
                     <section className="container">
-                        robotRights 2023 &copy;
+                        emailsRights 2024 &copy;
                     </section>
                 </footer>
             </section>
